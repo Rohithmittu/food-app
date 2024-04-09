@@ -1,13 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
+import Home from "./Pages/Home";
+import Navbar from "./Components/Navbar";
+import Favorites from "./Pages/Favorites";
+import Details from "./Pages/Details";
+import GlobalState from "./Context";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route path="navbar" element={<Navbar />} />
+      <Route path="" element={<Home />} />
+      <Route path="favorites" element={<Favorites />} />
+      <Route path="recipe-item/:id" element={<Details />} />
+    </Route>
+  )
+);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <GlobalState>
+      <RouterProvider router={router} />
+    </GlobalState>
   </React.StrictMode>
 );
 
